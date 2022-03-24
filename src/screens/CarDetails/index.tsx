@@ -1,7 +1,20 @@
 import React from 'react'
 import { BackButton } from '../../components/BackButton'
 import { ImageSlider } from '../../components/ImageSlider'
-import { Container, Header, CarImages } from "./styles";
+import {
+  Container,
+  Header,
+  CarImages,
+  Content,
+  Details,
+  Description,
+  Brand,
+  Name,
+  Rent,
+  Period,
+  Price,
+  About,
+} from "./styles";
 
 export function CarDetails() {
   return (
@@ -16,6 +29,27 @@ export function CarDetails() {
           ]}
         />
       </CarImages>
+
+      <Content>
+        <Details>
+          <Description>
+            <Brand>Mercedes</Brand>
+            <Name>C</Name>
+          </Description>
+
+          <Rent>
+            <Period>Ao dia</Period>
+            <Price>R$ 300</Price>
+          </Rent>
+        </Details>
+
+        <About>
+          A expressão Lorem ipsum em design gráfico e editoração é um texto
+          padrão em latim utilizado na produção gráfica para preencher os
+          espaços de texto em publicações para testar e ajustar aspectos visuais
+          antes de utilizar conteúdo real.
+        </About>
+      </Content>
     </Container>
   );
 }
