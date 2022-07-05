@@ -1,6 +1,10 @@
 import React from 'react'
 import { BackButton } from '../../components/BackButton'
+import { Button } from '../../components/Button';
 import { ImageSlider } from '../../components/ImageSlider'
+
+import speedSvg from '../../assets/speed.svg';
+
 import {
   Container,
   Header,
@@ -14,7 +18,10 @@ import {
   Period,
   Price,
   About,
+  Footer,
+  Acessories,
 } from "./styles";
+import { Accessory } from '../../components/Acessory';
 
 export function CarDetails() {
   return (
@@ -43,6 +50,15 @@ export function CarDetails() {
           </Rent>
         </Details>
 
+        <Acessories>
+          <Accessory name="300km/h" icon={speedSvg} />
+          <Accessory name="300km/h" icon={speedSvg} />
+          <Accessory name="300km/h" icon={speedSvg} />
+          <Accessory name="300km/h" icon={speedSvg} />
+          <Accessory name="300km/h" icon={speedSvg} />
+          <Accessory name="300km/h" icon={speedSvg} />
+        </Acessories>
+
         <About>
           A expressão Lorem ipsum em design gráfico e editoração é um texto
           padrão em latim utilizado na produção gráfica para preencher os
@@ -50,6 +66,10 @@ export function CarDetails() {
           antes de utilizar conteúdo real.
         </About>
       </Content>
+
+      <Footer>
+        <Button title="Confirmar" />
+      </Footer>
     </Container>
   );
 }
