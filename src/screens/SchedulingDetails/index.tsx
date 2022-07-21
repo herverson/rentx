@@ -36,9 +36,15 @@ import { Button } from '../../components/Button';
 import { StatusBar } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { ImageSlider } from '../../components/ImageSlider';
+import { useNavigation } from '@react-navigation/native';
 
 export function SchedulingDetails() {
   const theme = useTheme();
+   const navigation = useNavigation();
+
+   function handleSchedulingComplete() {
+     navigation.navigate("SchedulingComplete");
+   }
   return (
     <Container>
       <Header>
@@ -116,7 +122,7 @@ export function SchedulingDetails() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" />
+        <Button title="Alugar agora" color={theme.colors.success} onPress={handleSchedulingComplete} />
       </Footer>
     </Container>
   );

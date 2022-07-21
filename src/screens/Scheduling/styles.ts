@@ -22,7 +22,7 @@ export const Header = styled.View`
   padding-top: ${getStatusBarHeight() + 30}px;
 `;
 
-export const Title = styled.View`
+export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
   font-family: ${({ theme }) => theme.fonts.secondary_600};
   font-size: ${RFValue(34)}px;

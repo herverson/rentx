@@ -22,8 +22,15 @@ import {
   Acessories,
 } from "./styles";
 import { Accessory } from '../../components/Acessory';
+import { useNavigation } from '@react-navigation/native';
 
 export function CarDetails() {
+  const navigation = useNavigation();
+
+  function handleConfirmDetails() {
+    navigation.navigate('Scheduling');
+  }
+
   return (
     <Container>
       <Header>
@@ -68,7 +75,10 @@ export function CarDetails() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Escolher período de aluguel"
+          onPress={handleConfirmDetails}
+        />
       </Footer>
     </Container>
   );

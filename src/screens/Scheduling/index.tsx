@@ -7,18 +7,26 @@ import ArrowSvg from '../../assets/arrow.svg';
 import { useTheme } from 'styled-components';
 import { Button } from '../../components/Button';
 import { StatusBar } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Calendar } from '../../components/Calendar';
 
 export function Scheduling() {
   const theme = useTheme();
+  const navigation = useNavigation();
+
+  function handleSchedulingDetails() {
+    navigation.navigate("SchedulingDetails");
+  }
+
   return (
     <Container>
       <Header>
         <StatusBar
-          barStyle='light-content'
+          barStyle="light-content"
           translucent
-          backgroundColor='tranparent'
+          backgroundColor="tranparent"
         />
-        
+
         <BackButton onPress={() => {}} color={theme.colors.shape} />
 
         <Title>
@@ -43,11 +51,11 @@ export function Scheduling() {
       </Header>
 
       <Content>
-
+        <Calendar />
       </Content>
 
       <Footer>
-        <Button title='Confirmar' />
+        <Button title="Confirmar" onPress={handleSchedulingDetails} />
       </Footer>
     </Container>
   );
