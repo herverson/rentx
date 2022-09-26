@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BackButton } from '../../components/BackButton';
 import { Container, Content, DateInfo, DateTitle, DateValue, Footer, Header, RentalPeriod, Title } from './styles';
 
@@ -8,9 +8,14 @@ import { useTheme } from 'styled-components';
 import { Button } from '../../components/Button';
 import { StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Calendar } from '../../components/Calendar';
+import { Calendar, DayProps, MarkedDateProps } from '../../components/Calendar';
+import { generateInterval } from '../../components/Calendar/generateInterval';
 
 export function Scheduling() {
+  const [lastSelectedDate, setlastSelectedDate] = useState<DayProps>({} as DayProps);
+  const [markedDates, setmarkedDates] = useState<MarkedDateProps>(
+    {} as MarkedDateProps
+  );
   const theme = useTheme();
   const navigation = useNavigation();
 
@@ -18,6 +23,24 @@ export function Scheduling() {
     navigation.navigate("SchedulingDetails");
   }
 
+  function handleBack() {
+    navigation.goBack();
+  }
+
+  function handleChangeDate(date: DayProps) {
+    let start = !lastSelectedDate.timestamp ? date : lastSelectedDate;
+    let end = date;
+
+    if (start.timestamp > end.timestamp) {
+      start = end;
+      end = start;
+    }
+
+    setlastSelectedDate(end);
+    const interval = generateInterval(start, end);
+    setmarkedDates(interval);
+
+  }
   return (
     <Container>
       <Header>
@@ -27,7 +50,7 @@ export function Scheduling() {
           backgroundColor="tranparent"
         />
 
-        <BackButton onPress={() => {}} color={theme.colors.shape} />
+        <BackButton onPress={handleBack} color={theme.colors.shape} />
 
         <Title>
           Escolha uma {"\n"}
@@ -51,7 +74,7 @@ export function Scheduling() {
       </Header>
 
       <Content>
-        <Calendar />
+        <Calendar markedDates={markedDates} onDayPress={handleChangeDate} />
       </Content>
 
       <Footer>
