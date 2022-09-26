@@ -19,58 +19,61 @@ import {
   Price,
   About,
   Footer,
-  Acessories,
+  Accessories,
 } from "./styles";
 import { Accessory } from '../../components/Acessory';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { CarDTO } from '../../dtos/CarDTO';
+
+interface Params {
+  car: CarDTO;
+}
 
 export function CarDetails() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { car } = route.params as Params;
 
   function handleConfirmDetails() {
     navigation.navigate('Scheduling');
   }
 
+  function handleBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleBack} />
       </Header>
       <CarImages>
         <ImageSlider
-          imagesUrl={[
-            "https://cdn.autopapo.com.br/box/uploads/2019/07/25111304/frente-mercedes-classe-c-cabriolet.png",
-          ]}
+          imagesUrl={car.photos}
         />
       </CarImages>
 
       <Content>
         <Details>
           <Description>
-            <Brand>Mercedes</Brand>
-            <Name>C</Name>
+            <Brand>{car.brand}</Brand>
+            <Name>{car.name}</Name>
           </Description>
 
           <Rent>
-            <Period>Ao dia</Period>
-            <Price>R$ 300</Price>
+            <Period>{car.rent.period}</Period>
+            <Price>R$ {car.rent.price}</Price>
           </Rent>
         </Details>
 
-        <Acessories>
-          <Accessory name="300km/h" icon={speedSvg} />
-          <Accessory name="300km/h" icon={speedSvg} />
-          <Accessory name="300km/h" icon={speedSvg} />
-          <Accessory name="300km/h" icon={speedSvg} />
-          <Accessory name="300km/h" icon={speedSvg} />
-          <Accessory name="300km/h" icon={speedSvg} />
-        </Acessories>
+        <Accessories>
+          {car.accessories.map((accessory) => (
+            <Accessory key={accessory.type} name={accessory.name} icon={speedSvg} />
+          ))}
+        </Accessories>
 
         <About>
-          A expressão Lorem ipsum em design gráfico e editoração é um texto
-          padrão em latim utilizado na produção gráfica para preencher os
-          espaços de texto em publicações para testar e ajustar aspectos visuais
-          antes de utilizar conteúdo real.
+          {car.about}
         </About>
       </Content>
 
