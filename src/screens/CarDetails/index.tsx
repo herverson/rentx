@@ -3,8 +3,6 @@ import { BackButton } from '../../components/BackButton'
 import { Button } from '../../components/Button';
 import { ImageSlider } from '../../components/ImageSlider'
 
-import speedSvg from '../../assets/speed.svg';
-
 import {
   Container,
   Header,
@@ -24,6 +22,7 @@ import {
 import { Accessory } from '../../components/Acessory';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { CarDTO } from '../../dtos/CarDTO';
+import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 
 interface Params {
   car: CarDTO;
@@ -48,9 +47,7 @@ export function CarDetails() {
         <BackButton onPress={handleBack} />
       </Header>
       <CarImages>
-        <ImageSlider
-          imagesUrl={car.photos}
-        />
+        <ImageSlider imagesUrl={car.photos} />
       </CarImages>
 
       <Content>
@@ -68,13 +65,15 @@ export function CarDetails() {
 
         <Accessories>
           {car.accessories.map((accessory) => (
-            <Accessory key={accessory.type} name={accessory.name} icon={speedSvg} />
+            <Accessory
+              key={accessory.type}
+              name={accessory.name}
+              icon={getAccessoryIcon(accessory.type)}
+            />
           ))}
         </Accessories>
 
-        <About>
-          {car.about}
-        </About>
+        <About>{car.about}</About>
       </Content>
 
       <Footer>
