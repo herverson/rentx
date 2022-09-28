@@ -1,24 +1,38 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
-import { StatusBar } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import { StatusBar } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { Ionicons } from '@expo/vector-icons';
 
-import Logo from "../../assets/logo.svg";
-import { Car } from "../../components/Car";
-import { Load } from "../../components/Load";
-import { CarDTO } from "../../dtos/CarDTO";
-import { api } from "../../services/api";
+import Logo from '../../assets/logo.svg';
+import { Car } from '../../components/Car';
+import { Load } from '../../components/Load';
+import { CarDTO } from '../../dtos/CarDTO';
+import { api } from '../../services/api';
 
-import { CarList, Container, Header, HeaderContent, TotalCars } from "./styles";
+import {
+  CarList,
+  Container,
+  Header,
+  HeaderContent,
+  MyCarsFloatingButton,
+  TotalCars,
+} from './styles';
 
 export default function Home() {
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const theme = useTheme();
   const navigation = useNavigation();
 
   function handleCarDetails(car: CarDTO) {
     navigation.navigate('CarDetails', { car });
+  }
+
+  function handleOpenMyCars() {
+    navigation.navigate('MyCars');
   }
 
   useEffect(() => {
@@ -50,15 +64,21 @@ export default function Home() {
           <TotalCars>Total de {cars.length} carros</TotalCars>
         </HeaderContent>
       </Header>
-      { loading ? <Load /> :
+      {loading ? (
+        <Load />
+      ) : (
         <CarList
           data={cars}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <Car data={item} onPress={() => handleCarDetails(item)} />
           )}
-        /> 
-      }
+        />
+      )}
+
+      <MyCarsFloatingButton onPress={handleOpenMyCars}>
+        <Ionicons name="ios-car-sport" size={32} color={theme.colors.shape} />
+      </MyCarsFloatingButton>
     </Container>
   );
 }
